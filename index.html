@@ -1,0 +1,1212 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guia Mestre de Equipamentos de Pesca</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        ocean: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            500: '#06b6d4',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                            950: '#082f49',
+                        },
+                        amberwood: {
+                            500: '#d97706',
+                            600: '#b45309',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glass-nav {
+            background: rgba(12, 74, 110, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .badge-pulse {
+            animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        @keyframes pulse-ring {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.05); }
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #0284c7;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #38bdf8;
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 font-sans min-h-screen flex flex-col selection:bg-cyan-500 selection:text-white">
+
+    <!-- Top Navigation -->
+    <header class="sticky top-0 z-50 glass-nav border-b border-cyan-900/50 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Logo -->
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-cyan-600 to-blue-500 flex items-center justify-center text-white shadow-lg shadow-cyan-500/20 group-hover:scale-105 transition-transform">
+                    <i class="fa-solid font-bold fa-fish-fins text-xl"></i>
+                </div>
+                <div>
+                    <span class="text-xl font-extrabold tracking-tight bg-gradient-to-r from-white via-cyan-100 to-cyan-400 bg-clip-text text-transparent block leading-none">
+                        Tralha<span class="text-cyan-400">Certa</span>
+                    </span>
+                    <span class="text-[10px] text-cyan-300/70 font-semibold tracking-wider uppercase">Guia Técnico de Pesca</span>
+                </div>
+            </a>
+
+            <!-- Desktop Nav -->
+            <nav class="hidden md:flex items-center gap-1 lg:gap-2 text-sm font-medium">
+                <a href="#modalidades" class="px-3 py-2 rounded-lg text-slate-300 hover:text-cyan-400 hover:bg-slate-800/60 transition">Modalidades</a>
+                <a href="#assistente" class="px-3 py-2 rounded-lg text-slate-300 hover:text-cyan-400 hover:bg-slate-800/60 transition flex items-center gap-1.5">
+                    <i class="fa-solid fa-wand-magic-sparkles text-amber-400 text-xs"></i>
+                    Monte Seu Conjunto
+                </a>
+                <a href="#nos" class="px-3 py-2 rounded-lg text-slate-300 hover:text-cyan-400 hover:bg-slate-800/60 transition">Nós Essenciais</a>
+                <a href="#checklist" class="px-3 py-2 rounded-lg text-slate-300 hover:text-cyan-400 hover:bg-slate-800/60 transition">Checklist</a>
+                <a href="#comparativo" class="px-3 py-2 rounded-lg text-slate-300 hover:text-cyan-400 hover:bg-slate-800/60 transition">Tabela Rápida</a>
+            </nav>
+
+            <!-- Actions -->
+            <div class="hidden sm:flex items-center gap-3">
+                <button onclick="scrollToWizard()" class="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-semibold text-xs uppercase tracking-wider px-4 py-2.5 rounded-xl shadow-lg shadow-cyan-500/25 transition hover:shadow-cyan-500/40 active:scale-95 flex items-center gap-2">
+                    <i class="fa-solid fa-compass"></i>
+                    Simulador de Tralha
+                </button>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="md:hidden p-2 rounded-lg text-slate-300 hover:bg-slate-800 focus:outline-none">
+                <i class="fa-solid fa-bars text-xl"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Drawer -->
+        <div id="mobile-menu" class="hidden md:hidden border-b border-slate-800 bg-slate-900/95 backdrop-blur-lg px-4 pt-2 pb-6 space-y-2">
+            <a href="#modalidades" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-md text-base font-medium text-slate-200 hover:bg-slate-800">Modalidades de Pesca</a>
+            <a href="#assistente" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-md text-base font-medium text-amber-300 hover:bg-slate-800">Monte Seu Conjunto (IA)</a>
+            <a href="#nos" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-md text-base font-medium text-slate-200 hover:bg-slate-800">Nós Essenciais</a>
+            <a href="#checklist" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-md text-base font-medium text-slate-200 hover:bg-slate-800">Checklist de Viagem</a>
+            <a href="#comparativo" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-md text-base font-medium text-slate-200 hover:bg-slate-800">Tabela de Equipamentos</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative pt-12 pb-20 md:pt-20 md:pb-32 overflow-hidden bg-gradient-to-b from-slate-900 via-ocean-950 to-slate-950">
+        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-cyan-900/30 via-slate-950/80 to-slate-950 pointer-events-none"></div>
+        
+        <!-- Decorative Grid Background -->
+        <div class="absolute inset-0 opacity-10 bg-[linear-gradient(to_right,#0284c7_1px,transparent_1px),linear-gradient(to_bottom,#0284c7_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]"></div>
+
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto space-y-6">
+                <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-950/80 border border-cyan-500/30 text-cyan-300 text-xs font-semibold tracking-wide shadow-inner">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400 badge-pulse"></span>
+                    Guia de Pescaria em Água Doce & Salgada
+                </div>
+                
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight">
+                    Equipamento Certo para o <span class="bg-gradient-to-r from-cyan-400 via-teal-300 to-amber-300 bg-clip-text text-transparent">Peixe Certo</span>
+                </h1>
+                
+                <p class="text-base sm:text-lg text-slate-300 leading-relaxed font-light">
+                    Não perca o peixe da sua vida por causa da tralha errada. Descubra a libragem ideal da vara, tamanho de molinete/carretilha, bitola de linha e nós específicos para cada estilo de pesca.
+                </p>
+
+                <!-- Quick Search Bar -->
+                <div class="pt-4 max-w-xl mx-auto">
+                    <div class="relative flex items-center">
+                        <i class="fa-solid fa-magnifying-glass absolute left-4 text-slate-400 text-lg"></i>
+                        <input type="text" id="global-search" oninput="filterModalities()" placeholder="Buscar por modalidade ou peixe (ex: Tucunaré, Piapara, Mar, Jigging...)" class="w-full bg-slate-900/90 border border-slate-700/80 text-white placeholder-slate-400 rounded-2xl pl-12 pr-28 py-4 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent text-sm shadow-2xl backdrop-blur-md">
+                        <button onclick="filterModalities()" class="absolute right-2 bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-semibold px-4 py-2.5 rounded-xl transition">
+                            Buscar
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Modality Quick Pills -->
+                <div class="pt-4 flex flex-wrap justify-center gap-2 text-xs font-medium text-slate-300">
+                    <span class="text-slate-400 self-center mr-1">Acesso rápido:</span>
+                    <button onclick="quickFilter('artificial')" class="px-3 py-1.5 rounded-lg bg-slate-800/80 hover:bg-cyan-900/60 hover:text-cyan-300 border border-slate-700/60 transition">Isca Artificial</button>
+                    <button onclick="quickFilter('pingadinha')" class="px-3 py-1.5 rounded-lg bg-slate-800/80 hover:bg-cyan-900/60 hover:text-cyan-300 border border-slate-700/60 transition">Pingadinha / Ceva</button>
+                    <button onclick="quickFilter('rodada')" class="px-3 py-1.5 rounded-lg bg-slate-800/80 hover:bg-cyan-900/60 hover:text-cyan-300 border border-slate-700/60 transition">Pesca na Rodada</button>
+                    <button onclick="quickFilter('mar')" class="px-3 py-1.5 rounded-lg bg-slate-800/80 hover:bg-cyan-900/60 hover:text-cyan-300 border border-slate-700/60 transition">Praia & Mar</button>
+                    <button onclick="quickFilter('pesqueiro')" class="px-3 py-1.5 rounded-lg bg-slate-800/80 hover:bg-cyan-900/60 hover:text-cyan-300 border border-slate-700/60 transition">Pesqueiro</button>
+                    <button onclick="quickFilter('fly')" class="px-3 py-1.5 rounded-lg bg-slate-800/80 hover:bg-cyan-900/60 hover:text-cyan-300 border border-slate-700/60 transition">Fly Fishing</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Section: Modalidades de Pesca -->
+    <section id="modalidades" class="py-16 bg-slate-950 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4 border-b border-slate-800/80 pb-6">
+                <div>
+                    <h2 class="text-3xl font-bold text-white tracking-tight flex items-center gap-3">
+                        <i class="fa-solid fa-boxes-packing text-cyan-400"></i>
+                        Guia Completo por Modalidade
+                    </h2>
+                    <p class="text-slate-400 text-sm mt-1">Selecione a técnica desejada para ver o dimensionamento correto da tralha.</p>
+                </div>
+
+                <!-- Filter Tabs -->
+                <div class="flex flex-wrap gap-1 bg-slate-900 p-1.5 rounded-xl border border-slate-800 text-xs font-semibold">
+                    <button onclick="filterCategory('all')" id="tab-all" class="category-tab active px-3 py-2 rounded-lg bg-cyan-600 text-white transition">Todas</button>
+                    <button onclick="filterCategory('rio')" id="tab-rio" class="category-tab px-3 py-2 rounded-lg text-slate-400 hover:text-white transition">Rios & Lagoas</button>
+                    <button onclick="filterCategory('mar')" id="tab-mar" class="category-tab px-3 py-2 rounded-lg text-slate-400 hover:text-white transition">Mar & Costa</button>
+                    <button onclick="filterCategory('pesqueiro')" id="tab-pesqueiro" class="category-tab px-3 py-2 rounded-lg text-slate-400 hover:text-white transition">Pesqueiros</button>
+                </div>
+            </div>
+
+            <!-- Cards Grid -->
+            <div id="modalities-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Cards injected dynamically by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Wizard: Monte Seu Conjunto -->
+    <section id="assistente" class="py-20 bg-gradient-to-b from-slate-900 to-ocean-950 relative overflow-hidden border-t border-b border-cyan-900/40">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <span class="inline-block p-3 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-amber-400 mb-3">
+                    <i class="fa-solid fa-wand-magic-sparkles text-2xl"></i>
+                </span>
+                <h2 class="text-3xl font-extrabold text-white">Assistente Interativo "Tralha Ideal"</h2>
+                <p class="text-slate-300 text-sm mt-2">Responda 3 perguntas simples e receba o setup ideal calculado para sua pescaria.</p>
+            </div>
+
+            <!-- Wizard Card -->
+            <div class="bg-slate-900/90 border border-cyan-800/50 rounded-3xl p-6 sm:p-10 shadow-2xl backdrop-blur-md">
+                
+                <!-- Progress indicator -->
+                <div class="flex items-center justify-between mb-8 max-w-xs mx-auto text-xs font-semibold text-slate-400">
+                    <div id="step-dot-1" class="flex flex-col items-center text-cyan-400">
+                        <span class="w-8 h-8 rounded-full border-2 border-cyan-400 bg-cyan-950 flex items-center justify-center font-bold mb-1">1</span>
+                        <span>Ambiente</span>
+                    </div>
+                    <div class="flex-1 h-0.5 bg-slate-800 mx-2"></div>
+                    <div id="step-dot-2" class="flex flex-col items-center">
+                        <span class="w-8 h-8 rounded-full border-2 border-slate-700 bg-slate-950 flex items-center justify-center font-bold mb-1">2</span>
+                        <span>Espécie Alvo</span>
+                    </div>
+                    <div class="flex-1 h-0.5 bg-slate-800 mx-2"></div>
+                    <div id="step-dot-3" class="flex flex-col items-center">
+                        <span class="w-8 h-8 rounded-full border-2 border-slate-700 bg-slate-950 flex items-center justify-center font-bold mb-1">3</span>
+                        <span>Estilo de Pesca</span>
+                    </div>
+                </div>
+
+                <!-- Wizard Form Steps Container -->
+                <div id="wizard-container">
+                    <!-- Step 1 -->
+                    <div id="wizard-step-1" class="space-y-6">
+                        <h3 class="text-xl font-bold text-center text-white">Onde você pretende pescar?</h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                            <button onclick="selectStep1('rio')" class="p-5 rounded-2xl bg-slate-800/80 hover:bg-cyan-950 hover:border-cyan-500 border border-slate-700 text-left transition group">
+                                <div class="w-12 h-12 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center text-xl mb-3 group-hover:scale-110 transition">
+                                    <i class="fa-solid fa-water"></i>
+                                </div>
+                                <h4 class="font-bold text-white text-base">Rio ou Lagoa</h4>
+                                <p class="text-xs text-slate-400 mt-1">Água doce natural, estrutura de paus, barrancos e pedreiras.</p>
+                            </button>
+
+                            <button onclick="selectStep1('pesqueiro')" class="p-5 rounded-2xl bg-slate-800/80 hover:bg-cyan-950 hover:border-cyan-500 border border-slate-700 text-left transition group">
+                                <div class="w-12 h-12 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-xl mb-3 group-hover:scale-110 transition">
+                                    <i class="fa-solid fa-umbrella-beach"></i>
+                                </div>
+                                <h4 class="font-bold text-white text-base">Pesqueiro / Lago Pago</h4>
+                                <p class="text-xs text-slate-400 mt-1">Lagos artificiais, grandes tambas, boias cevadeiras.</p>
+                            </button>
+
+                            <button onclick="selectStep1('mar')" class="p-5 rounded-2xl bg-slate-800/80 hover:bg-cyan-950 hover:border-cyan-500 border border-slate-700 text-left transition group">
+                                <div class="w-12 h-12 rounded-xl bg-teal-500/20 text-teal-400 flex items-center justify-center text-xl mb-3 group-hover:scale-110 transition">
+                                    <i class="fa-solid fa-ship"></i>
+                                </div>
+                                <h4 class="font-bold text-white text-base">Mar / Costa / Praia</h4>
+                                <p class="text-xs text-slate-400 mt-1">Surfcasting de praia, costão rochoso ou alto mar.</p>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div id="wizard-step-2" class="hidden space-y-6">
+                        <h3 class="text-xl font-bold text-center text-white">Qual é o peixe principal que você busca?</h3>
+                        <div id="step-2-options" class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                            <!-- Populated dynamically based on Step 1 selection -->
+                        </div>
+                        <div class="text-center pt-2">
+                            <button onclick="prevStep(1)" class="text-xs text-slate-400 hover:text-white underline">← Voltar para ambiente</button>
+                        </div>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div id="wizard-step-3" class="hidden space-y-6">
+                        <h3 class="text-xl font-bold text-center text-white">Qual técnica prefere utilizar?</h3>
+                        <div id="step-3-options" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                            <!-- Populated dynamically based on Step 2 -->
+                        </div>
+                        <div class="text-center pt-2">
+                            <button onclick="prevStep(2)" class="text-xs text-slate-400 hover:text-white underline">← Voltar para peixe alvo</button>
+                        </div>
+                    </div>
+
+                    <!-- Step 4 / Output Result -->
+                    <div id="wizard-result" class="hidden space-y-6">
+                        <div class="bg-gradient-to-r from-cyan-950 via-slate-900 to-slate-900 border border-cyan-500/50 rounded-2xl p-6 sm:p-8">
+                            <div class="flex items-center justify-between border-b border-slate-800 pb-4 mb-6">
+                                <div>
+                                    <span class="text-xs uppercase tracking-widest text-cyan-400 font-bold">Recomendação Personalizada</span>
+                                    <h4 id="result-title" class="text-2xl font-extrabold text-white">Conjunto Tucunaré Açu & Trairão</h4>
+                                </div>
+                                <button onclick="resetWizard()" class="text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 px-3 py-1.5 rounded-lg transition">
+                                    <i class="fa-solid fa-rotate-left mr-1"></i> Refazer
+                                </button>
+                            </div>
+
+                            <!-- Spec grid -->
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="result-specs">
+                                <!-- Populated dynamically -->
+                            </div>
+
+                            <!-- Pro Tip Banner -->
+                            <div class="mt-6 p-4 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-200 text-xs sm:text-sm flex gap-3 items-start">
+                                <i class="fa-solid fa-lightbulb text-amber-400 text-lg mt-0.5"></i>
+                                <div>
+                                    <strong class="block text-amber-300 mb-0.5">Dica de Ouro do Capoteiro:</strong>
+                                    <span id="result-protip">Sempre verifique os passadores da vara antes de atar o fluorocarbono. Fissuras no anel cerâmico cortam a linha multifilamento durante o arremesso.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Essential Knots Section -->
+    <section id="nos" class="py-16 bg-slate-950">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <span class="text-cyan-400 text-xs font-bold tracking-widest uppercase">Segurança no Anzol</span>
+                <h2 class="text-3xl font-extrabold text-white mt-1">Nós Indispensáveis na Pesca</h2>
+                <p class="text-slate-400 text-sm mt-2">Um nó mal feito reduz a resistência da linha em até 50%. Conheça os nós certos para união e anzóis.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Knot 1: SF Knot -->
+                <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 hover:border-cyan-500/50 transition">
+                    <div class="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 flex items-center justify-center text-lg font-bold mb-4">
+                        01
+                    </div>
+                    <h3 class="font-bold text-white text-lg">Nó SF (SF Knot)</h3>
+                    <p class="text-xs text-cyan-400 font-medium mb-3">União: Multifilamento + Fluorocarbono</p>
+                    <p class="text-xs text-slate-300 leading-relaxed mb-4">
+                        Extremamente fino e passa suavemente pelos passadores microrings. Mantém até 95% da resistência da linha.
+                    </p>
+                    <ul class="text-[11px] text-slate-400 space-y-1.5 list-disc list-inside bg-slate-950 p-3 rounded-xl border border-slate-800">
+                        <li>10 a 12 voltas cruzadas na ponta do leader</li>
+                        <li>Trançado perfeito sob tensão contínua</li>
+                        <li>Arremate final com nó cego triplo</li>
+                    </ul>
+                </div>
+
+                <!-- Knot 2: Albright -->
+                <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 hover:border-cyan-500/50 transition">
+                    <div class="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 flex items-center justify-center text-lg font-bold mb-4">
+                        02
+                    </div>
+                    <h3 class="font-bold text-white text-lg">Nó Albright</h3>
+                    <p class="text-xs text-emerald-400 font-medium mb-3">União: Linhas de Diâmetros Diferentes</p>
+                    <p class="text-xs text-slate-300 leading-relaxed mb-4">
+                        Rápido de fazer na beira do rio em dias de vento. Excelente para unir fluorocarbono grosso a multifilamento.
+                    </p>
+                    <ul class="text-[11px] text-slate-400 space-y-1.5 list-disc list-inside bg-slate-950 p-3 rounded-xl border border-slate-800">
+                        <li>Dobre a ponta do fluorocarbono pesado</li>
+                        <li>Passe o multifilamento pela dobra</li>
+                        <li>Dê 8 a 10 voltas e retorne pelo laço</li>
+                    </ul>
+                </div>
+
+                <!-- Knot 3: Palomar -->
+                <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 hover:border-cyan-500/50 transition">
+                    <div class="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-400 flex items-center justify-center text-lg font-bold mb-4">
+                        03
+                    </div>
+                    <h3 class="font-bold text-white text-lg">Nó Palomar</h3>
+                    <p class="text-xs text-amber-400 font-medium mb-3">Fixação: Anzóis, Snap e Giradores</p>
+                    <p class="text-xs text-slate-300 leading-relaxed mb-4">
+                        Considerado um dos nós mais fortes e fáceis do mundo para amarrar snaps e anzóis. Praticamente impossível de correr.
+                    </p>
+                    <ul class="text-[11px] text-slate-400 space-y-1.5 list-disc list-inside bg-slate-950 p-3 rounded-xl border border-slate-800">
+                        <li>Dobre a linha e passe pelo olho do anzol</li>
+                        <li>Dê um nó simples deixando a alça livre</li>
+                        <li>Passe o anzol por dentro da alça e molhe antes de apertar</li>
+                    </ul>
+                </div>
+
+                <!-- Knot 4: Nó de Sangue / Clinch -->
+                <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 hover:border-cyan-500/50 transition">
+                    <div class="w-10 h-10 rounded-xl bg-purple-500/10 border border-purple-500/30 text-purple-400 flex items-center justify-center text-lg font-bold mb-4">
+                        04
+                    </div>
+                    <h3 class="font-bold text-white text-lg">Improved Clinch Knot</h3>
+                    <p class="text-xs text-purple-400 font-medium mb-3">Fixação: Iscas Artificiais e Anzóis</p>
+                    <p class="text-xs text-slate-300 leading-relaxed mb-4">
+                        Padrão universal para pesca com isca viva e arremesso. Perfeito para linhas de monofilamento de até 0.50mm.
+                    </p>
+                    <ul class="text-[11px] text-slate-400 space-y-1.5 list-disc list-inside bg-slate-950 p-3 rounded-xl border border-slate-800">
+                        <li>Passe pelo olho e torça a linha 5 a 6 vezes</li>
+                        <li>Passe a ponta pela primeira alça criada</li>
+                        <li>Insira a ponta na grande alça superior e aperte</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Gear Checklist -->
+    <section id="checklist" class="py-16 bg-slate-900 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8">
+                <div>
+                    <span class="text-amber-400 text-xs font-bold tracking-widest uppercase">Organização Pré-Pescaria</span>
+                    <h2 class="text-3xl font-extrabold text-white mt-1">Checklist Interativo de Tralha</h2>
+                    <p class="text-slate-400 text-sm mt-1">Marque os itens antes de sair de casa para não esquecer nada no barranco ou barco.</p>
+                </div>
+                <div class="flex items-center gap-2">
+                    <button onclick="resetChecklist()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-medium px-4 py-2.5 rounded-xl border border-slate-700 transition">
+                        <i class="fa-solid fa-arrows-rotate mr-1"></i> Desmarcar Todos
+                    </button>
+                    <button onclick="copyChecklist()" class="bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-semibold px-4 py-2.5 rounded-xl transition flex items-center gap-1.5 shadow-md">
+                        <i class="fa-solid fa-copy"></i> Copiar Lista
+                    </button>
+                </div>
+            </div>
+
+            <!-- Checklist Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" id="checklist-container">
+                <!-- Group 1: Equipamentos Principais -->
+                <div class="bg-slate-950 border border-slate-800 rounded-2xl p-5">
+                    <h3 class="font-bold text-cyan-400 text-sm border-b border-slate-800 pb-3 mb-3 flex items-center justify-between">
+                        <span><i class="fa-solid fa-rod-ascent mr-2"></i> Tralha Pesada</span>
+                        <span class="text-[10px] bg-slate-800 px-2 py-0.5 rounded text-slate-400 font-normal">0/4</span>
+                    </h3>
+                    <div class="space-y-2.5 text-xs text-slate-300">
+                        <label class="flex items-center gap-2.5 cursor-pointer hover:text-white">
+                            <input type="checkbox" class="chk-item w-4 h-4 rounded text-cyan-500 focus:ring-cyan-600 bg-slate-900 border-slate-700" onchange="updateChecklistProgress()">
+                            <span>Varas com capas protetoras</span>
+                        </label>
+                        <label class="flex items-center gap-2.5 cursor-pointer hover:text-white">
+                            <input type="checkbox" class="chk-item w-4 h-4 rounded text-cyan-500 focus:ring-cyan-600 bg-slate-900 border-slate-700" onchange="updateChecklistProgress()">
+                            <span>Carretilhas/Molinetes revisados</span>
+                        </label>
+                        <label class="flex items-center gap-2.5 cursor-pointer hover:text-white">
+                            <input type="checkbox" class="chk-item w-4 h-4 rounded text-cyan-500 focus:ring-cyan-600 bg-slate-900 border-slate-700" onchange="updateChecklistProgress()">
+                            <span>Carretéis de linha reserva</span>
+                        </label>
+                        <label class="flex items-center gap-2.5 cursor-pointer hover:text-white">
+                            <input type="checkbox" class="chk-item w-4 h-4 rounded text-cyan-500 focus:ring-cyan-600 bg-slate-900 border-slate-700" onchange="updateChecklistProgress()">
+                            <span>Leader Fluorocarbono + Aço</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Group 2: Ferramentas & Acessórios -->
+                <div class="bg-slate-950 border border-slate-800 rounded-2xl p-5">
+                    <h3 class="font-bold text-cyan-400 text-sm border-b border-slate-800 pb-3 mb-3 flex items-center justify-between">
+                        <span><i class="fa-solid fa-screwdriver-wrench mr-2"></i> Ferramental</span>
+                        <span class="text-[10px] bg-slate-800 px-2 py-0.5 rounded text-slate-400 font-normal">0/4</span>
+                    </h3>
+                    <div class="space-y-2.5 text-xs text-slate-300">
+                        <label class="flex items-center gap-2.5 cursor-pointer hover:text-white">
+                            <input type="checkbox" class="chk-item w-4 h-4 rounded text-cyan-500 focus:ring-cyan-600 bg-slate-900 border-slate-700" onchange="updateChecklistProgress()">
+                            <span>Alicate de Bico (troca de garatéia)</span>
+                        </label>
+                        <label class="flex items-center gap-2.5 cursor-pointer hover:text-white">
+                            <input type="checkbox" class="chk-item w-4 h-4 rounded text-cyan-500 focus:ring-cyan-600 bg-slate-900 border-slate-700" onchange="updateChecklistProgress()">
+                            <span>Alicate de Contenção (Boga Grip)</span>
+                        </label>
+                        <label class="flex items-center gap-2.5 cursor-pointer hover:text-white">
+                            <input type="checkbox" class="chk-item w-4 h-4 rounded text-cyan-500 focus:ring-cyan-600 bg-slate-900 border-slate-700" onchange="updateChecklistProgress()">
+                            <span>Tesoura / Cortador de multifilamento</span>
+                        </label>
+                        <label class="flex items-center gap-2.5 cursor-pointer hover:text-white">
+                            <input type="checkbox" class="chk-item w-4 h-4 rounded text-cyan-500 focus:ring-cyan-600 bg-slate-900 border-slate-700" onchange="updateChecklistProgress()">
+                            <span>Snaps, Giradores e Chumbadas</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Group 3: Iscas & Caixas -->
+                <div class="bg-slate-950 border border-slate-800 rounded-2xl p-5">
+                    <h3 class="font-bold text-cyan-400 text-sm border-b border-slate-800 pb-3 mb-3 flex items-center justify-between">
+                        <span><i class="fa-solid fa-box-archive mr-2"></i> Iscas e Anzóis</span>
+                        <span class="text-[10px] bg-slate-800 px-2 py-0.5 rounded text-slate-400 font-normal">0/4</span>
+                    </h3>
+                    <div class="space-y-2.5 text-xs text-slate-300">
+                        <label class="flex items-center gap-2.5 cursor-pointer hover:text-white">
+                            <input type="checkbox" class="chk-item w-4 h-4 rounded text-cyan-500 focus:ring-cyan-600 bg-slate-900 border-slate-700" onchange="updateChecklistProgress()">
+                            <span>Caixa de iscas artificiais organizadas</span>
+                        </label>
+                        <label class="flex items-center gap-2.5 cursor-pointer hover:text-white">
+                            <input type="checkbox" class="chk-item w-4 h-4 rounded text-cyan-500 focus:ring-cyan-600 bg-slate-900 border-slate-700" onchange="updateChecklistProgress()">
+                            <span>Anzóis variados (Chinu, Maruseigo, Offset)</span>
+                        </label>
+                        <label class="flex items-center gap-2.5 cursor-pointer hover:text-white">
+                            <input type="checkbox" class="chk-item w-4 h-4 rounded text-cyan-500 focus:ring-cyan-600 bg-slate-900 border-slate-700" onchange="updateChecklistProgress()">
+                            <span>Boias cevadeiras, torpedos e miçangas</span>
+                        </label>
+                        <label class="flex items-center gap-2.5 cursor-pointer hover:text-white">
+                            <input type="checkbox" class="chk-item w-4 h-4 rounded text-cyan-500 focus:ring-cyan-600 bg-slate-900 border-slate-700" onchange="updateChecklistProgress()">
+                            <span>Iscas naturais/massas/conservas</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Group 4: Documentos & Proteção -->
+                <div class="bg-slate-950 border border-slate-800 rounded-2xl p-5">
+                    <h3 class="font-bold text-amber-400 text-sm border-b border-slate-800 pb-3 mb-3 flex items-center justify-between">
+                        <span><i class="fa-solid fa-shield-halved mr-2"></i> Pessoal & Licença</span>
+                        <span class="text-[10px] bg-slate-800 px-2 py-0.5 rounded text-slate-400 font-normal">0/4</span>
+                    </h3>
+                    <div class="space-y-2.5 text-xs text-slate-300">
+                        <label class="flex items-center gap-2.5 cursor-pointer hover:text-white">
+                            <input type="checkbox" class="chk-item w-4 h-4 rounded text-cyan-500 focus:ring-cyan-600 bg-slate-900 border-slate-700" onchange="updateChecklistProgress()">
+                            <span>Licença de Pesca Amadora atualizada</span>
+                        </label>
+                        <label class="flex items-center gap-2.5 cursor-pointer hover:text-white">
+                            <input type="checkbox" class="chk-item w-4 h-4 rounded text-cyan-500 focus:ring-cyan-600 bg-slate-900 border-slate-700" onchange="updateChecklistProgress()">
+                            <span>Camisa de UV, Chapéu e Óculos Polarizado</span>
+                        </label>
+                        <label class="flex items-center gap-2.5 cursor-pointer hover:text-white">
+                            <input type="checkbox" class="chk-item w-4 h-4 rounded text-cyan-500 focus:ring-cyan-600 bg-slate-900 border-slate-700" onchange="updateChecklistProgress()">
+                            <span>Protetor solar e Repelente de insetos</span>
+                        </label>
+                        <label class="flex items-center gap-2.5 cursor-pointer hover:text-white">
+                            <input type="checkbox" class="chk-item w-4 h-4 rounded text-cyan-500 focus:ring-cyan-600 bg-slate-900 border-slate-700" onchange="updateChecklistProgress()">
+                            <span>Caixa térmica com gelo e hidratação</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comparative Table Section -->
+    <section id="comparativo" class="py-16 bg-slate-950">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="mb-8">
+                <span class="text-cyan-400 text-xs font-bold tracking-widest uppercase">Resumo Rápido</span>
+                <h2 class="text-3xl font-extrabold text-white mt-1">Matriz Comparativa de Equipamentos</h2>
+                <p class="text-slate-400 text-sm mt-1">Consulte os parâmetros de varas, linhas e carretilhas recomendados lado a lado.</p>
+            </div>
+
+            <!-- Table Card -->
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-xl">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-xs text-slate-300">
+                        <thead class="bg-slate-950 text-slate-200 uppercase tracking-wider font-semibold border-b border-slate-800">
+                            <tr>
+                                <th class="p-4">Modalidade</th>
+                                <th class="p-4">Vara (Ação & Libragem)</th>
+                                <th class="p-4">Molinete / Carretilha</th>
+                                <th class="p-4">Linha Principal</th>
+                                <th class="p-4">Leader / Empate</th>
+                                <th class="p-4">Iscas / Anzóis Principais</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-800/80" id="matrix-tbody">
+                            <!-- Populated dynamically via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Detail Modal -->
+    <div id="detail-modal" class="fixed inset-0 z-50 hidden bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+        <div class="bg-slate-900 border border-cyan-800/60 rounded-3xl max-w-3xl w-full max-h-[90vh] overflow-y-auto shadow-2xl relative">
+            <!-- Modal Header -->
+            <div class="sticky top-0 bg-slate-900/95 backdrop-blur border-b border-slate-800 p-6 flex items-center justify-between z-10">
+                <div class="flex items-center gap-3">
+                    <div id="modal-icon" class="w-10 h-10 rounded-xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center text-xl">
+                        <i class="fa-solid fa-fish"></i>
+                    </div>
+                    <div>
+                        <h3 id="modal-title" class="text-xl font-bold text-white">Título da Modalidade</h3>
+                        <p id="modal-subtitle" class="text-xs text-cyan-400">Ambiente & Alvos</p>
+                    </div>
+                </div>
+                <button onclick="closeModal()" class="p-2 text-slate-400 hover:text-white rounded-lg hover:bg-slate-800 transition">
+                    <i class="fa-solid fa-xmark text-xl"></i>
+                </button>
+            </div>
+
+            <!-- Modal Content Body -->
+            <div class="p-6 space-y-6" id="modal-body">
+                <!-- Dynamic Content injected by JavaScript -->
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="bg-slate-950 px-6 py-4 border-t border-slate-800 flex justify-end">
+                <button onclick="closeModal()" class="bg-slate-800 hover:bg-slate-700 text-white text-xs font-semibold px-5 py-2.5 rounded-xl transition">
+                    Fechar Guia
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-slate-950 border-t border-slate-800/80 text-slate-400 py-12 text-xs">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div class="space-y-3">
+                    <div class="flex items-center gap-2">
+                        <i class="fa-solid fa-fish-fins text-cyan-400 text-lg"></i>
+                        <span class="text-white font-bold text-sm">TralhaCerta</span>
+                    </div>
+                    <p class="text-slate-400 leading-relaxed">
+                        Seu portal de consulta rápida para dimensionamento técnico de equipamentos de pesca esportiva. Respeite as cotas e pratique o Pesque e Solte!
+                    </p>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-semibold mb-3">Pesca em Água Doce</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#modalidades" onclick="quickFilter('artificial')" class="hover:text-cyan-400 transition">Pesca de Tucunaré & Robalo</a></li>
+                        <li><a href="#modalidades" onclick="quickFilter('pingadinha')" class="hover:text-cyan-400 transition">Pingadinha na Ceva (Piapara)</a></li>
+                        <li><a href="#modalidades" onclick="quickFilter('rodada')" class="hover:text-cyan-400 transition">Rodada de Grandes de Couro</a></li>
+                        <li><a href="#modalidades" onclick="quickFilter('pesqueiro')" class="hover:text-cyan-400 transition">Anteninhas em Pesqueiro</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-semibold mb-3">Pesca no Mar</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#modalidades" onclick="quickFilter('mar')" class="hover:text-cyan-400 transition">Surfcasting / Pesca de Praia</a></li>
+                        <li><a href="#modalidades" onclick="quickFilter('mar')" class="hover:text-cyan-400 transition">Vertical Jigging em Mar Aberto</a></li>
+                        <li><a href="#modalidades" onclick="quickFilter('mar')" class="hover:text-cyan-400 transition">Pesca de Costão Rochoso</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-semibold mb-3">Conscientização</h4>
+                    <div class="bg-slate-900 p-3 rounded-xl border border-slate-800 text-slate-300">
+                        <i class="fa-solid fa-leaf text-emerald-400 mr-1"></i>
+                        <strong>Pesca Consciente:</strong>
+                        <p class="mt-1 text-[11px] text-slate-400">
+                            Sempre leve sacos de lixo para recolher linhas usadas e embalagens. Linha descartada na natureza mata aves e fauna aquática.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-t border-slate-900 pt-6 flex flex-col sm:flex-row items-center justify-between text-slate-500">
+                <p>© 2026 TralhaCerta - Guia Técnico de Pesca Esportiva. Todos os direitos reservados.</p>
+                <div class="flex gap-4 mt-2 sm:mt-0">
+                    <a href="#modalidades" class="hover:text-slate-300">Topo</a>
+                    <a href="#assistente" class="hover:text-slate-300">Assistente</a>
+                    <a href="#nos" class="hover:text-slate-300">Nós</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Data Store for Modalities
+        const modalitiesData = [
+            {
+                id: 'artificial',
+                category: 'rio',
+                title: 'Pesca com Isca Artificial',
+                subtitle: 'Tucunaré, Robalo, Traíra & Dourado',
+                icon: 'fa-droplet',
+                badgeBg: 'bg-cyan-500/20 text-cyan-400 border-cyan-500/30',
+                shortDesc: 'Arremesso constante com pincho de superfícies, meia-água e jigs. Exige alta sensibilidade, rápido recolhimento e componentes leves.',
+                specs: {
+                    rod: "5'3\" a 6'0\" | 12-25 lb | Ação Rápida ou Extra-Rápida",
+                    reel: "Carretilha Perfil Baixo (Velocidade 7.1:1 a 8.1:1) ou Molinete 2000/3000",
+                    line: "Multifilamento 8x (0.23mm a 0.32mm / 25-40lb)",
+                    leader: "Fluorocarbono 0.45mm a 0.55mm (comprimento 1.5m a 2m)",
+                    hooks: "Snaps reforçados com engate rápido (30-50lb) + Garatéias 4x/6x",
+                    baits: "Zara, Popper, Stick, Meia-Água, Soft Baits (Shads), Jig de Cerdas"
+                },
+                details: {
+                    technique: "O pescador arremessa em estruturas (paliteiros, pauzinhos, pedreiras e vegetação) imitando peixes presas com toques curtos e ritmados de ponta de vara.",
+                    gearAnalysis: "Varas curtas (5'3\" a 5'8\") facilitam o trabalho de ponta de vara para baixo no barco. A carretilha de alta velocidade recupera folga de linha rapidamente para fisgadas eficientes.",
+                    proTip: "Se estiver pescando Tucunaré Açu ou Trairão, utilize líder de Fluorocarbono mais grosso (0.55mm+) ou empate rígido curto para evitar corte na boca áspera.",
+                    pros: ["Pesca muito ativa e esportiva", "Ataques visuais na superfície inesquecíveis", "Equipamento leve que reduz cansaço"],
+                    cons: ["Exige treino de arremesso e precisão", "Risco de enroscar em estruturas"]
+                }
+            },
+            {
+                id: 'pingadinha',
+                category: 'rio',
+                title: 'Pesca de Ceva na Pingadinha',
+                subtitle: 'Piapara, Piauçú, Pacu & Piracanjuba',
+                icon: 'fa-wheat-awn',
+                badgeBg: 'bg-amber-500/20 text-amber-400 border-amber-500/30',
+                shortDesc: 'Pesca técnica de sensibilidade extrema em rios correntosos utilizando ceva suspensa no barco ancorado e chumbadas oliva deslizantes.',
+                specs: {
+                    rod: "1.80m a 2.40m | 8-15 lb | Ação Lenta/Moderada com ponteira bem macia",
+                    reel: "Carretilha Perfil Baixo leve com bom freio ou Molinete 1000/2000",
+                    line: "Monofilamento 0.28mm a 0.35mm (ou Multifilamento 0.18mm + ponteira rígida)",
+                    leader: "Fluorocarbono 0.30mm a 0.40mm (Chicote de 1 metro)",
+                    hooks: "Anzol Chinu nº 2, 3, 4 ou Maruseigo nº 12 a 16",
+                    baits: "Milho Azedo/Cozido, Caranguejo, Coxim de Milho, Massas, Minhoca Suassu"
+                },
+                details: {
+                    technique: "O barco é ancorado acima do poço e o tubo de ceva é solto no fundo. O pescador solta a chumbada até o fundo e dá pequenos 'pingos' (elevações lentas da vara de 10cm) para sentir o toque sutil da Piapara.",
+                    gearAnalysis: "A ponta da vara precisa ser extremamente sensível (fibras mistas com ponta macia colorida) para que o peixe não sinta a resistência ao acomodar a isca na boca.",
+                    proTip: "Ajuste a chumbada oliva para que fique correndo solta na linha acima do girador. O peso deve ser suficiente apenas para manter o fundo sem arrastar demais na correnteza.",
+                    pros: ["Técnica relaxante e altamente estratégica", "Garante exemplar saboroso e briga forte na correnteza"],
+                    cons: ["Requer paciência para ceva fazer efeito", "Exige leitura refinada do toque do peixe"]
+                }
+            },
+            {
+                id: 'rodada',
+                category: 'rio',
+                title: 'Pesca na Rodada (Deriva)',
+                subtitle: 'Pintado, Surubim, Jaú, Dourado & Barbado',
+                icon: 'fa-sailboat',
+                badgeBg: 'bg-blue-500/20 text-blue-400 border-blue-500/30',
+                shortDesc: 'Pesca com o barco descendo livremente na correnteza do rio acompanhando poços profundos com iscas vivas batendo no fundo.',
+                specs: {
+                    rod: "5'6\" a 7'0\" | 20-60 lb | Ação Moderada-Rápida (Maciça ou Tubular Reforçada)",
+                    reel: "Carretilha Perfil Alto ou Baixo Pesado (Tamanho 300/400) com alarme",
+                    line: "Multifilamento 0.35mm a 0.45mm (50-80lb) ou Monofilamento 0.50mm-0.60mm",
+                    leader: "Empate de Aço Trançado 40-60lb (30-50cm) ou Fluorocarbono 0.70mm+",
+                    hooks: "Anzol J-Hook / Chinu Extra Heavy nº 6/0 a 8/0 ou Anzol Círculo (Circle Hook)",
+                    baits: "Iscas Vivas: Tuvira, Muçum, Curimba, Jeju, Pirambóia e Caranguejo"
+                },
+                details: {
+                    technique: "Com o motor desligado, o barco navega na velocidade da água. O pescador mantém a tuvira batendo no fundo do canal do rio com chumbada adequada para não trancar nas pedras.",
+                    gearAnalysis: "Equipamentos com grande capacidade de armazenamento de linha e alto drag são cruciais, pois peixes de couro grandes correm para galhadas no fundo do rio.",
+                    proTip: "Ao usar anzol Circle Hook (Anzol Círculo), NUNCA dê a fisgada forte! Apenas estique a linha firmemente e recolha; o anzol irá fisgar sozinho no canto da boca do peixe.",
+                    pros: ["Possibilidade de capturar peixes gigantescos de até 50kg", "Cobre grandes extensões do rio em pouco tempo"],
+                    cons: ["Tralha mais pesada que exige força física", "Muitos enroscos no leito do rio"]
+                }
+            },
+            {
+                id: 'mar',
+                category: 'mar',
+                title: 'Pesca de Praia & Mar',
+                subtitle: 'Surfcasting, Jigging, Costão & Embarcado',
+                icon: 'fa-water',
+                badgeBg: 'bg-teal-500/20 text-teal-400 border-teal-500/30',
+                shortDesc: 'Pesca de arremesso longo na arrebentação da praia ou vertical em alto mar contra grandes predadores de água salgada.',
+                specs: {
+                    rod: "Praia: 3.90m a 4.50m (3 Partes) | Jigging: 5'3\" a 6'0\" PE 2-5",
+                    reel: "Molinete de Praia Carretes Rasos (Tamanho 5000-8000) ou Carretilha de Jigging",
+                    line: "Praia: Mono 0.18mm-0.23mm + Arranque Cônico | Jigging: Multi PE 3-5",
+                    leader: "Fluorocarbono Marino 0.50mm a 0.80mm de altíssima resistência à abrasão",
+                    hooks: "Maruseigo Anzol Inox nº 14 a 20 ou Assist Hooks Duplos para Jig",
+                    baits: "Camarão vivo/morto, Corrupto, Tatuíra, Sardinha e Metal Jigs 60g-200g"
+                },
+                details: {
+                    technique: "Na praia (Surfcasting), busca-se arremessar a chumbada pirâmide além da terceira onda. No Jigging embarcado, o metal jig é trabalhado no fundo subindo rápido até a meia água.",
+                    gearAnalysis: "Equipamentos marítimos necessitam de rolamentos blindados anticorrosivos e estruturas em alumínio anonisado para resistir à maresia violenta.",
+                    proTip: "Lave sempre TODO o equipamento com água doce morna assim que retornar do mar. Nunca guarde carretilhas ou varas com resquícios de sal.",
+                    pros: ["Enorme variedade de espécies de peixes marinhos", "Sensação indescritível no arremesso longo de praia"],
+                    cons: ["Maresia exige manutenção rigorosa", "Condições de maré e ondas oscilam bastante"]
+                }
+            },
+            {
+                id: 'pesqueiro',
+                category: 'pesqueiro',
+                title: 'Pesca em Pesqueiros',
+                subtitle: 'Tambacus, Tambaquis, Pirararas & Carpas',
+                icon: 'fa-dharmachakra',
+                badgeBg: 'bg-purple-500/20 text-purple-400 border-purple-500/30',
+                shortDesc: 'Pesca de arremessos longos em grandes lagos pagos usando boias cevadeiras, chicotes longos e miçangas na superfície.',
+                specs: {
+                    rod: "2.10m a 2.70m | 20-40 lb | Ação Rápida com boa alavanca",
+                    reel: "Carretilha Perfil Baixo com grande capacidade de linha 0.37mm x 150m ou Molinete 4000",
+                    line: "Monofilamento 0.37mm a 0.45mm (ou Multifilamento 0.28mm-0.33mm)",
+                    leader: "Fluorocarbono 0.45mm a 0.55mm (Chicote de 1.5m a 3m de comprimento)",
+                    hooks: "Anzol Chinu nº 4 a 6, Anzol Pinook ou Iseama para Ração",
+                    baits: "Boia Cevadeira 50-70g, Anteninhas, Miçangas E.V.A., Ração Furadinha, Salsicha"
+                },
+                details: {
+                    technique: "A boia cevadeira é lançada no meio do lago carregada de ração. Ao bater na água, solta o alimento atraindo o cardume de tambas para a superfície onde sua anteninha está camuflada.",
+                    gearAnalysis: "Varas longas (2.40m a 2.70m) garantem a alavanca necessária para lançar boias pesadas de 60g a mais de 50 metros de distância com facilidade.",
+                    proTip: "Em dias de vento ou peixe manhoso, aumente o comprimento do chicote de fluorocarbono para até 3 metros e diminua o tamanho da miçanga.",
+                    pros: ["Altíssima probabilidade de engatar peixes acima de 15kg", "Excelente estrutura de conforto para a família"],
+                    cons: ["Peixes bastante velhacos e acostumados com pressão"]
+                }
+            },
+            {
+                id: 'fly',
+                category: 'rio',
+                title: 'Fly Fishing (Pesca com Mosca)',
+                subtitle: 'Truta, Tucunaré, Robalo & Piraputanga',
+                icon: 'fa-feather',
+                badgeBg: 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30',
+                shortDesc: 'Técnica ancestral de arremesso onde o peso da própria linha arremessa iscas pluma/moscas ultraleves d\'água.',
+                specs: {
+                    rod: "Vara de Fly #5 ou #6 (Leve) / #8 ou #9 (Tucunaré/Robalo) | 9 pés",
+                    reel: "Carretilha de Fly (Fly Reel) proporcional ao peso da vara (#5/6 ou #8/9)",
+                    line: "Fly Line Floating (WF-F) ou Sinking Tip + 100m de Backing 20lb",
+                    leader: "Leader Cônico Tapered Leader 9 pés + Tippet Fluorocarbono",
+                    hooks: "Anzóis de Mosca nº 12 a 2/0 vestidos com penas, pelos e resinas Epoxy",
+                    baits: "Moscas Secas (Dry Flies), Ninfas, Streamers (Woolly Bugger, Clouser Minnow)"
+                },
+                details: {
+                    technique: "O arremesso é uma arte harmônica em chicoteamento de linha. A linha pesada flutuante arremessa uma mosca leve de penas suavemente na superfície do rio.",
+                    gearAnalysis: "A numeração (# ou Weight) deve ser exatamente compatível entre Vara, Linha e Carretilha para que a transferência de energia seja perfeita no arremesso.",
+                    proTip: "Inicie no Fly em rios de água cristalina pescando Piraputangas ou Trutas com moscas secas para praticar o tempo do 'backcast' com clareza visual.",
+                    pros: ["Modalidade mais poética, elegante e esportiva da pesca", "Trabalho artesanal de atado de moscas"],
+                    cons: ["Curva de aprendizado do arremesso exige dedicação"]
+                }
+            }
+        ];
+
+        // Render Modalities Cards
+        function renderModalities(data) {
+            const grid = document.getElementById('modalities-grid');
+            grid.innerHTML = '';
+
+            data.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'bg-slate-900 border border-slate-800 rounded-3xl p-6 hover:border-cyan-500/60 transition-all duration-300 flex flex-col justify-between group shadow-xl hover:shadow-cyan-950/30';
+                card.innerHTML = `
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="px-3 py-1 rounded-full text-xs font-bold border ${item.badgeBg}">
+                                ${item.subtitle.split('&')[0]}
+                            </span>
+                            <div class="w-10 h-10 rounded-xl bg-slate-800 text-cyan-400 flex items-center justify-center text-lg group-hover:bg-cyan-500 group-hover:text-white transition">
+                                <i class="fa-solid ${item.icon}"></i>
+                            </div>
+                        </div>
+
+                        <h3 class="text-xl font-bold text-white mb-1 group-hover:text-cyan-300 transition">${item.title}</h3>
+                        <p class="text-xs text-slate-400 mb-4">${item.subtitle}</p>
+                        
+                        <p class="text-xs text-slate-300 leading-relaxed mb-6">
+                            ${item.shortDesc}
+                        </p>
+
+                        <!-- Quick Specs Highlights -->
+                        <div class="space-y-2 bg-slate-950 p-3.5 rounded-2xl border border-slate-800/80 text-[11px] mb-6">
+                            <div class="flex items-start gap-2">
+                                <i class="fa-solid fa-rod-ascent text-cyan-400 mt-0.5"></i>
+                                <div><strong class="text-slate-200">Vara:</strong> <span class="text-slate-400">${item.specs.rod}</span></div>
+                            </div>
+                            <div class="flex items-start gap-2">
+                                <i class="fa-solid fa-compact-disc text-amber-400 mt-0.5"></i>
+                                <div><strong class="text-slate-200">Linha:</strong> <span class="text-slate-400">${item.specs.line}</span></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button onclick="openModal('${item.id}')" class="w-full bg-slate-800 hover:bg-cyan-600 hover:text-white text-slate-300 font-semibold text-xs py-3 rounded-xl border border-slate-700 transition flex items-center justify-center gap-2">
+                        <span>Ver Ficha Técnica Completa</span>
+                        <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                    </button>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // Render Matrix Table
+        function renderMatrixTable() {
+            const tbody = document.getElementById('matrix-tbody');
+            tbody.innerHTML = '';
+
+            modalitiesData.forEach(item => {
+                const tr = document.createElement('tr');
+                tr.className = 'hover:bg-slate-900/60 transition';
+                tr.innerHTML = `
+                    <td class="p-4 font-bold text-white whitespace-nowrap">
+                        <i class="fa-solid ${item.icon} text-cyan-400 mr-2"></i>
+                        ${item.title}
+                    </td>
+                    <td class="p-4 text-slate-300 min-w-[200px]">${item.specs.rod}</td>
+                    <td class="p-4 text-slate-300 min-w-[200px]">${item.specs.reel}</td>
+                    <td class="p-4 text-cyan-300 font-medium min-w-[180px]">${item.specs.line}</td>
+                    <td class="p-4 text-slate-300 min-w-[180px]">${item.specs.leader}</td>
+                    <td class="p-4 text-slate-400 min-w-[220px]">${item.specs.baits}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        // Filtering Logic
+        function filterCategory(cat) {
+            document.querySelectorAll('.category-tab').forEach(b => {
+                b.classList.remove('bg-cyan-600', 'text-white');
+                b.classList.add('text-slate-400');
+            });
+            const activeTab = document.getElementById(`tab-${cat}`);
+            if (activeTab) {
+                activeTab.classList.add('bg-cyan-600', 'text-white');
+                activeTab.classList.remove('text-slate-400');
+            }
+
+            if (cat === 'all') {
+                renderModalities(modalitiesData);
+            } else {
+                const filtered = modalitiesData.filter(m => m.category === cat);
+                renderModalities(filtered);
+            }
+        }
+
+        function filterModalities() {
+            const query = document.getElementById('global-search').value.toLowerCase();
+            const filtered = modalitiesData.filter(m => 
+                m.title.toLowerCase().includes(query) ||
+                m.subtitle.toLowerCase().includes(query) ||
+                m.shortDesc.toLowerCase().includes(query) ||
+                m.specs.baits.toLowerCase().includes(query)
+            );
+            renderModalities(filtered);
+        }
+
+        function quickFilter(id) {
+            const targetSection = document.getElementById('modalidades');
+            targetSection.scrollIntoView({ behavior: 'smooth' });
+            openModal(id);
+        }
+
+        // Modal Functionality
+        function openModal(id) {
+            const item = modalitiesData.find(m => m.id === id);
+            if (!item) return;
+
+            document.getElementById('modal-title').textContent = item.title;
+            document.getElementById('modal-subtitle').textContent = item.subtitle;
+            document.getElementById('modal-icon').innerHTML = `<i class="fa-solid ${item.icon}"></i>`;
+
+            const modalBody = document.getElementById('modal-body');
+            modalBody.innerHTML = `
+                <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800 space-y-2">
+                    <h4 class="text-xs font-bold uppercase tracking-wider text-cyan-400">Como Funciona a Técnica</h4>
+                    <p class="text-xs text-slate-300 leading-relaxed">${item.details.technique}</p>
+                </div>
+
+                <div>
+                    <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3">Dimensionamento Recomendado da Tralha</h4>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                        <div class="bg-slate-950 p-3.5 rounded-xl border border-slate-800">
+                            <span class="text-cyan-400 font-bold block mb-1"><i class="fa-solid fa-rod-ascent mr-1"></i> Vara</span>
+                            <span class="text-slate-200">${item.specs.rod}</span>
+                        </div>
+                        <div class="bg-slate-950 p-3.5 rounded-xl border border-slate-800">
+                            <span class="text-amber-400 font-bold block mb-1"><i class="fa-solid fa-compact-disc mr-1"></i> Molinete / Carretilha</span>
+                            <span class="text-slate-200">${item.specs.reel}</span>
+                        </div>
+                        <div class="bg-slate-950 p-3.5 rounded-xl border border-slate-800">
+                            <span class="text-teal-400 font-bold block mb-1"><i class="fa-solid fa-lines-leaning mr-1"></i> Linha Principal</span>
+                            <span class="text-slate-200">${item.specs.line}</span>
+                        </div>
+                        <div class="bg-slate-950 p-3.5 rounded-xl border border-slate-800">
+                            <span class="text-purple-400 font-bold block mb-1"><i class="fa-solid fa-shield mr-1"></i> Leader / Empate</span>
+                            <span class="text-slate-200">${item.specs.leader}</span>
+                        </div>
+                        <div class="bg-slate-950 p-3.5 rounded-xl border border-slate-800 sm:col-span-2">
+                            <span class="text-emerald-400 font-bold block mb-1"><i class="fa-solid fa-fish mr-1"></i> Anzóis & Iscas Indicadas</span>
+                            <span class="text-slate-200">${item.specs.baits}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="bg-emerald-950/20 border border-emerald-500/30 p-4 rounded-2xl">
+                        <h5 class="text-xs font-bold text-emerald-400 mb-2"><i class="fa-solid fa-thumbs-up mr-1"></i> Pontos Fortes</h5>
+                        <ul class="text-[11px] text-slate-300 space-y-1 list-disc list-inside">
+                            ${item.details.pros.map(p => `<li>${p}</li>`).join('')}
+                        </ul>
+                    </div>
+                    <div class="bg-red-950/20 border border-red-500/30 p-4 rounded-2xl">
+                        <h5 class="text-xs font-bold text-red-400 mb-2"><i class="fa-solid fa-triangle-exclamation mr-1"></i> Pontos de Atenção</h5>
+                        <ul class="text-[11px] text-slate-300 space-y-1 list-disc list-inside">
+                            ${item.details.cons.map(c => `<li>${c}</li>`).join('')}
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="bg-amber-500/10 border border-amber-500/30 p-4 rounded-2xl text-xs text-amber-200 flex gap-3 items-start">
+                    <i class="fa-solid fa-star text-amber-400 text-lg mt-0.5"></i>
+                    <div>
+                        <strong class="block text-amber-300 font-bold">Dica de Experiente:</strong>
+                        <span>${item.details.proTip}</span>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('detail-modal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('detail-modal').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Interactive Wizard State Machine
+        let wizardData = {
+            env: '',
+            target: '',
+            technique: ''
+        };
+
+        const wizardTargets = {
+            rio: [
+                { id: 'tucunare', name: 'Tucunaré / Robalo / Traíra', icon: 'fa-fish' },
+                { id: 'piapara', name: 'Piapara / Piau / Pacu (Ceva)', icon: 'fa-wheat-awn' },
+                { id: 'couro', name: 'Pintado / Surubim / Jaú (Couro)', icon: 'fa-water' }
+            ],
+            pesqueiro: [
+                { id: 'tamba', name: 'Tambacu / Tambaqui (Superfície)', icon: 'fa-circle-dot' },
+                { id: 'pirarara', name: 'Pirarara / Peixes de Couro', icon: 'fa-shield-cat' },
+                { id: 'carpa', name: 'Carpa Cabeçuda / fundo', icon: 'fa-sun' }
+            ],
+            mar: [
+                { id: 'praia', name: 'Peixe de Praia / Surfcasting', icon: 'fa-umbrella-beach' },
+                { id: 'jigging', name: 'Robalo / Olho de Cão (Costão/Jig)', icon: 'fa-anchor' },
+                { id: 'oceanico', name: 'Atum / Cavala / Dourado do Mar', icon: 'fa-ship' }
+            ]
+        };
+
+        function selectStep1(env) {
+            wizardData.env = env;
+            
+            // Render Step 2 Options
+            const container = document.getElementById('step-2-options');
+            container.innerHTML = '';
+
+            wizardTargets[env].forEach(item => {
+                const btn = document.createElement('button');
+                btn.className = 'p-5 rounded-2xl bg-slate-800/80 hover:bg-cyan-950 hover:border-cyan-500 border border-slate-700 text-left transition group';
+                btn.onclick = () => selectStep2(item.id);
+                btn.innerHTML = `
+                    <div class="w-10 h-10 rounded-xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center text-lg mb-2 group-hover:scale-110 transition">
+                        <i class="fa-solid ${item.icon}"></i>
+                    </div>
+                    <h4 class="font-bold text-white text-sm">${item.name}</h4>
+                `;
+                container.appendChild(btn);
+            });
+
+            document.getElementById('wizard-step-1').classList.add('hidden');
+            document.getElementById('wizard-step-2').classList.remove('hidden');
+
+            updateStepDots(2);
+        }
+
+        function selectStep2(target) {
+            wizardData.target = target;
+            
+            // Build final recommendation directly
+            generateWizardResult();
+        }
+
+        function generateWizardResult() {
+            document.getElementById('wizard-step-2').classList.add('hidden');
+            document.getElementById('wizard-result').classList.remove('hidden');
+
+            const resultSpecs = document.getElementById('result-specs');
+            const resultTitle = document.getElementById('result-title');
+            const resultTip = document.getElementById('result-protip');
+
+            updateStepDots(3);
+
+            let res = {
+                title: 'Conjunto Recomendado',
+                rod: '', reel: '', line: '', leader: '', hook: '', tip: ''
+            };
+
+            if (wizardData.target === 'tucunare') {
+                res.title = 'Setup Isca Artificial (Tucunaré / Robalo)';
+                res.rod = "5'6\" a 6'0\" | 14-20 lb | Ação Rápida";
+                res.reel = "Carretilha Perfil Baixo | Rec. 7.3:1 a 8.1:1";
+                res.line = "Multifilamento 8x 0.23mm (30lb)";
+                res.leader = "Fluorocarbono 0.47mm (25lb) - 1.8 metros";
+                res.hook = "Snap Reforçado nº 2 (40lb) + Isquis de Superfície";
+                res.tip = "Trabalhe a vara com toques curtos ritmados e mantenha a ponta abaixada para dar vida à isca zara.";
+            } else if (wizardData.target === 'piapara') {
+                res.title = 'Setup Pingadinha na Ceva (Piapara)';
+                res.rod = "2.10m | 8-14 lb | Fibra Mista de Ponta Macia";
+                res.reel = "Carretilha Perfil Baixo com freio magnético leve";
+                res.line = "Monofilamento 0.30mm de alta maciez";
+                res.leader = "Fluorocarbono 0.35mm com girador e chumbo oliva";
+                res.hook = "Anzol Chinu nº 3 ou Maruseigo 14 com milho azedo";
+                res.tip = "Não fisque com violência. A Piapara requer apenas um firme levantamento de braço quando a ponta dobrar.";
+            } else if (wizardData.target === 'couro') {
+                res.title = 'Setup Pesado na Rodada (Pintado / Surubim)';
+                res.rod = "6'0\" | 30-60 lb | Ação Moderada tubular";
+                res.reel = "Carretilha Perfil Alto (ex: Marine Pacific/Corvalus 400)";
+                res.line = "Multifilamento 0.40mm (60lb)";
+                res.leader = "Empate de Aço Flexível 50lb + Chumbada Oliva 80g";
+                res.hook = "Anzol J-Hook 7/0 ou Circle Hook com Tuvira viva";
+                res.tip = "Deixe o peixe carregar a linha por 3 segundos antes de travar a carretilha para garantir a fisgada.";
+            } else if (wizardData.target === 'tamba') {
+                res.title = 'Setup Pesqueiro Superfície (Tambacu)';
+                res.rod = "2.40m a 2.70m | 20-40 lb | Ação Rápida alavanca longa";
+                res.reel = "Carretilha Perfil Baixo com capacidade 150m de 0.37mm";
+                res.line = "Monofilamento 0.37mm ou Multifilamento 0.30mm";
+                res.leader = "Fluorocarbono 0.50mm (Chicote de 2.5 metros)";
+                res.hook = "Boia Cevadeira 60g + Anteninha em E.V.A.";
+                res.tip = "Ao arremessar a boia cevadeira, trave a linha ligeiramente antes de bater na água para esticar o chicote e evitar enroscos.";
+            } else {
+                res.title = 'Setup Especializado Universal';
+                res.rod = "6'6\" | 15-30 lb | Ação Média-Rápida";
+                res.reel = "Molinete Fricção Dianteira Tamanho 3000/4000";
+                res.line = "Multifilamento 0.28mm (35lb)";
+                res.leader = "Fluorocarbono 0.50mm";
+                res.hook = "Anzóis variados e Snaps com destorcedor";
+                res.tip = "Sempre verifique o freio (drag) do molinete ajustando para 1/3 da resistência da linha antes de começar a pescar.";
+            }
+
+            resultTitle.textContent = res.title;
+            resultTip.textContent = res.tip;
+
+            resultSpecs.innerHTML = `
+                <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
+                    <span class="text-xs text-cyan-400 font-bold block mb-1">Vara Ideal</span>
+                    <span class="text-sm font-semibold text-white">${res.rod}</span>
+                </div>
+                <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
+                    <span class="text-xs text-amber-400 font-bold block mb-1">Molinete / Carretilha</span>
+                    <span class="text-sm font-semibold text-white">${res.reel}</span>
+                </div>
+                <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
+                    <span class="text-xs text-teal-400 font-bold block mb-1">Linha Principal</span>
+                    <span class="text-sm font-semibold text-white">${res.line}</span>
+                </div>
+                <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
+                    <span class="text-xs text-purple-400 font-bold block mb-1">Leader / Empate</span>
+                    <span class="text-sm font-semibold text-white">${res.leader}</span>
+                </div>
+                <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 md:col-span-2">
+                    <span class="text-xs text-emerald-400 font-bold block mb-1">Anzol & Montagem</span>
+                    <span class="text-sm font-semibold text-white">${res.hook}</span>
+                </div>
+            `;
+        }
+
+        function updateStepDots(step) {
+            for (let i = 1; i <= 3; i++) {
+                const dot = document.getElementById(`step-dot-${i}`);
+                if (i <= step) {
+                    dot.className = "flex flex-col items-center text-cyan-400 font-bold";
+                } else {
+                    dot.className = "flex flex-col items-center text-slate-600";
+                }
+            }
+        }
+
+        function prevStep(step) {
+            document.getElementById(`wizard-step-1`).classList.add('hidden');
+            document.getElementById(`wizard-step-2`).classList.add('hidden');
+            document.getElementById(`wizard-step-3`).classList.add('hidden');
+            document.getElementById(`wizard-result`).classList.add('hidden');
+
+            document.getElementById(`wizard-step-${step}`).classList.remove('hidden');
+            updateStepDots(step);
+        }
+
+        function resetWizard() {
+            wizardData = { env: '', target: '', technique: '' };
+            document.getElementById(`wizard-result`).classList.add('hidden');
+            document.getElementById(`wizard-step-1`).classList.remove('hidden');
+            updateStepDots(1);
+        }
+
+        function scrollToWizard() {
+            document.getElementById('assistente').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Checklist Features
+        function updateChecklistProgress() {
+            // Updated dynamically
+        }
+
+        function resetChecklist() {
+            document.querySelectorAll('.chk-item').forEach(c => c.checked = false);
+        }
+
+        function copyChecklist() {
+            const checkedItems = [];
+            document.querySelectorAll('.chk-item').forEach(c => {
+                if (c.checked) {
+                    checkedItems.push("✓ " + c.nextElementSibling.textContent);
+                }
+            });
+
+            const textToCopy = checkedItems.length > 0 
+                ? "Checklist de Pesca TralhaCerta:\n\n" + checkedItems.join("\n") 
+                : "Nenhum item marcado na checklist.";
+
+            const tempInput = document.createElement("textarea");
+            tempInput.value = textToCopy;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand("copy");
+            document.body.removeChild(tempInput);
+
+            // Floating Toast notification without alert()
+            showToast("Checklist copiada para a área de transferência!");
+        }
+
+        function showToast(msg) {
+            const toast = document.createElement("div");
+            toast.className = "fixed bottom-6 right-6 z-50 bg-cyan-600 text-white font-semibold text-xs px-5 py-3 rounded-2xl shadow-2xl transition-all duration-300 flex items-center gap-2";
+            toast.innerHTML = `<i class="fa-solid fa-circle-check text-lg"></i> <span>${msg}</span>`;
+            document.body.appendChild(toast);
+
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        // Mobile Navigation Toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        // On DOM Load Initialize
+        window.onload = function() {
+            renderModalities(modalitiesData);
+            renderMatrixTable();
+        };
+    </script>
+</body>
+</html>
